@@ -1,0 +1,345 @@
+:root {
+  --primary: #4F46E5;
+  --accent: #6366F1;
+  --bg: #F8FAFC;
+  --card-bg: #FFFFFF;
+  --border: #E5E7EB;
+  --text-main: #111827;
+  --text-secondary: #6B7280;
+  --sidebar-w: 260px;
+  --topbar-h: 70px;
+  --font-family: 'Inter', sans-serif;
+  --hover-bg: #F3F4F6;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg);
+  color: var(--text-main);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-w);
+  background-color: var(--card-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.brand {
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand svg {
+  margin-right: 0.75rem;
+}
+
+.nav-menu {
+  flex: 1;
+  padding: 1rem 0;
+  overflow-y: auto;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.nav-item svg {
+  margin-right: 1rem;
+  width: 20px;
+  height: 20px;
+}
+
+.nav-item:hover, .nav-item.active {
+  background-color: #EEF2FF;
+  color: var(--primary);
+}
+
+.nav-item.active {
+  border-right: 3px solid var(--primary);
+}
+
+.sidebar-bottom {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.storage-info {
+  margin-bottom: 1rem;
+}
+
+.storage-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.progress-bar {
+  height: 6px;
+  background-color: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--primary);
+  width: 45%;
+}
+
+.btn-upgrade {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #EEF2FF;
+  color: var(--primary);
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-upgrade:hover {
+  background-color: #E0E7FF;
+}
+
+/* Main Content area */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Topbar */
+.topbar {
+  height: var(--topbar-h);
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  width: 400px;
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-left: 0.5rem;
+  width: 100%;
+  color: var(--text-main);
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.btn-outline:hover {
+  background-color: var(--hover-bg);
+}
+
+.profile-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+/* Content Area */
+.content-area {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.breadcrumb a {
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+}
+
+.view-options {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.view-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.view-btn.active, .view-btn:hover {
+  color: var(--primary);
+  background-color: #EEF2FF;
+}
+
+/* File Grid */
+.file-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.file-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.file-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+
+.file-icon {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.file-icon.folder {
+  color: #FCD34D;
+}
+
+.file-name {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.more-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  display: none;
+}
+
+.file-card:hover .more-btn {
+  display: block;
+}
+
+.more-btn:hover {
+  background-color: var(--hover-bg);
+}

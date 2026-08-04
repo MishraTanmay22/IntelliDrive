@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelliDrive - Secure Cloud Storage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="navbar-brand">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+                IntelliDrive
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="/login" class="btn btn-ghost">Login</a>
+                <a href="/register" class="btn btn-outline">Register</a>
+                <a href="/dashboard" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Secure cloud storage<br>for everyone.</h1>
+            <p>Experience fast, reliable, and private cloud storage with IntelliDrive. Your files, accessible anywhere, with state-of-the-art security.</p>
+            <div class="hero-actions">
+                <a href="/dashboard" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.125rem;">Get Started for Free</a>
+                <a href="#features" class="btn btn-outline" style="padding: 1rem 2rem; font-size: 1.125rem;">Learn More</a>
+            </div>
+            
+            <div style="margin-top: 4rem; max-width: 800px; margin-left: auto; margin-right: auto; border-radius: 1rem; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+                <img src="{{ url_for('static', filename='img/dashboard-preview.png') }}" alt="IntelliDrive Dashboard Preview" style="width: 100%; display: block; border-radius: 1rem;" onerror="this.src='https://placehold.co/800x450/eef2ff/4f46e5?text=Dashboard+Preview'">
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Everything you need in a cloud drive</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    </div>
+                    <h3>Fast Uploads</h3>
+                    <p>Experience lightning-fast transfer speeds for all your files and folders, no matter the size.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </div>
+                    <h3>Bank-level Security</h3>
+                    <p>Your files are protected with industry-leading encryption and privacy protocols.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    <h3>Instant Search</h3>
+                    <p>Find exactly what you're looking for in milliseconds with our powerful global search.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    <h3>Folder Management</h3>
+                    <p>Organize your digital life with intuitive drag-and-drop folder structures.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <h3>Easy Sharing</h3>
+                    <p>Collaborate with others by sharing files securely with just a few clicks.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    </div>
+                    <h3>Recycle Bin</h3>
+                    <p>Accidentally deleted a file? Easily restore it from the recycle bin within 30 days.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h2 class="text-primary" style="font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                        IntelliDrive
+                    </h2>
+                    <p>Providing secure, reliable, and intelligent cloud storage solutions for individuals and teams.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-group">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#security">Security</a></li>
+                            <li><a href="#pricing">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-group">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            <li><a href="/careers">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-group">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="/privacy">Privacy Policy</a></li>
+                            <li><a href="/terms">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 IntelliDrive. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
