@@ -8,59 +8,86 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 </head>
 <body>
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="brand">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <!-- Hidden file input for uploads -->
+    <input type="file" id="file-input" multiple style="display: none;">
+
+    <!-- Drag and Drop Overlay -->
+    <div id="dropzone-overlay" class="dropzone-overlay">
+        <div class="dropzone-box">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" style="margin-bottom: 1rem;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
             </svg>
-            IntelliDrive
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main);">Drop files to upload</h3>
+            <p style="color: var(--text-secondary); font-size: 0.875rem;">Your files will be securely encrypted and saved.</p>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <div class="brand">
+            <a href="/" class="brand-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+                <span>IntelliDrive</span>
+            </a>
+            <button id="sidebar-close-btn" class="sidebar-close-btn" title="Close Menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
         </div>
         <nav class="nav-menu">
-            <a href="#" class="nav-item active">
+            <button class="nav-item active" data-category="all">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                 My Files
-            </a>
-            <a href="#" class="nav-item">
+            </button>
+            <button class="nav-item" data-category="recent">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 Recent
-            </a>
-            <a href="#" class="nav-item">
+            </button>
+            <button class="nav-item" data-category="shared">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 Shared
-            </a>
-            <a href="#" class="nav-item">
+            </button>
+            <button class="nav-item" data-category="starred">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                 Starred
-            </a>
-            <a href="#" class="nav-item">
+            </button>
+            <button class="nav-item" data-category="trash">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                 Trash
-            </a>
-            <div style="margin: 1rem 0; border-top: 1px solid var(--border);"></div>
-            <a href="#" class="nav-item">
+            </button>
+            <div class="nav-divider"></div>
+            <button class="nav-item" onclick="openModal(document.getElementById('settings-modal'))">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                 Settings
-            </a>
-            <a href="/logout" class="nav-item">
+            </button>
+            <button class="nav-item" onclick="openModal(document.getElementById('logout-modal'))">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                 Logout
-            </a>
+            </button>
         </nav>
         <div class="sidebar-bottom">
             <div class="storage-info">
                 <div class="storage-text">
                     <span>Storage</span>
-                    <span>45% Used</span>
+                    <span id="storage-text-used">45% Used</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill"></div>
+                    <div id="storage-progress-fill" class="progress-fill"></div>
                 </div>
-                <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                <div id="storage-text-detail" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.5rem;">
                     9.0 GB of 20 GB used
                 </div>
             </div>
-            <button class="btn-upgrade">Upgrade Plan</button>
+            <button class="btn-upgrade" onclick="openModal(document.getElementById('upgrade-modal'))">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                Upgrade Plan
+            </button>
         </div>
     </aside>
 
@@ -68,90 +95,301 @@
     <main class="main-content">
         <!-- Topbar -->
         <header class="topbar">
-            <div class="search-box">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" placeholder="Search in IntelliDrive...">
+            <div class="topbar-left">
+                <button id="hamburger-btn" class="hamburger-btn" title="Open Menu">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+                <div class="search-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="search-input" placeholder="Search in IntelliDrive...">
+                    <button id="search-clear" class="search-clear-btn" title="Clear search">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
             </div>
+
             <div class="top-actions">
-                <button class="btn-outline">
+                <button id="new-folder-btn" class="btn-outline" title="Create New Folder">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
-                    New Folder
+                    <span class="btn-text">New Folder</span>
                 </button>
-                <button class="btn-primary">
+                <button id="upload-btn" class="btn-primary" title="Upload Files">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                    Upload
+                    <span class="btn-text">Upload</span>
                 </button>
-                <button class="profile-btn">JD</button>
+                
+                <div class="profile-container">
+                    <button id="profile-btn" class="profile-btn" title="User Menu">{{ user.initials if user else 'TM' }}</button>
+                    <div id="profile-dropdown" class="profile-dropdown">
+                        <div class="profile-header">
+                            <div class="profile-header-avatar">{{ user.initials if user else 'TM' }}</div>
+                            <div class="profile-info">
+                                <span class="profile-name">{{ user.name if user else 'Tanmay Mishra' }}</span>
+                                <span class="profile-email">{{ user.email if user else 'mishratanmay170@gmail.com' }}</span>
+                            </div>
+                        </div>
+                        <button class="dropdown-item" onclick="openModal(document.getElementById('settings-modal'))">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                            Account Settings
+                        </button>
+                        <button class="dropdown-item" onclick="openModal(document.getElementById('upgrade-modal'))">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                            Storage & Plans
+                        </button>
+                        <button class="dropdown-item" onclick="toggleTheme()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                            <span id="theme-toggle-text">Dark Mode</span>
+                        </button>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item text-danger" onclick="openModal(document.getElementById('logout-modal'))">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                            Logout
+                        </button>
+                    </div>
+                </div>
             </div>
         </header>
 
         <!-- Content Area -->
         <div class="content-area">
-            <div class="breadcrumb">
-                <a href="#">My Files</a>
+            <!-- Breadcrumb Trail -->
+            <div id="breadcrumb-container" class="breadcrumb-bar">
+                <span class="breadcrumb-item active">My Files</span>
+            </div>
+
+            <!-- Category / Trash Banner -->
+            <div id="category-banner" class="category-banner">
+                <span id="banner-text">Items in trash will be permanently deleted after 30 days.</span>
+                <button id="banner-action-btn" class="btn-danger" style="padding: 0.35rem 0.85rem; font-size: 0.8125rem;">Empty Trash</button>
+            </div>
+
+            <!-- Toolbar: Filter Chips & Sort -->
+            <div class="toolbar-row">
+                <div class="filter-chips">
+                    <button class="filter-chip active" data-type="all">All Files</button>
+                    <button class="filter-chip" data-type="folder">Folders</button>
+                    <button class="filter-chip" data-type="document">Documents</button>
+                    <button class="filter-chip" data-type="pdf">PDFs</button>
+                    <button class="filter-chip" data-type="image">Images</button>
+                    <button class="filter-chip" data-type="media">Media</button>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <select id="sort-select" class="sort-select">
+                        <option value="newest">Sort: Newest</option>
+                        <option value="oldest">Sort: Oldest</option>
+                        <option value="name_asc">Sort: Name (A-Z)</option>
+                        <option value="name_desc">Sort: Name (Z-A)</option>
+                        <option value="size_desc">Sort: Size (Largest)</option>
+                    </select>
+                </div>
             </div>
 
             <div class="toolbar">
-                <div style="font-size: 0.875rem; color: var(--text-secondary);">
-                    3 items
-                </div>
+                <div id="items-count" class="items-count">Loading items...</div>
                 <div class="view-options">
-                    <button class="view-btn active">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <button id="grid-view-btn" class="view-btn active" title="Grid View">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                     </button>
-                    <button class="view-btn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                    <button id="list-view-btn" class="view-btn" title="List View">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
                     </button>
                 </div>
             </div>
 
-            <div class="file-grid">
-                <!-- Folder Card -->
-                <div class="file-card">
-                    <button class="more-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                    </button>
-                    <div class="file-icon folder">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                    </div>
-                    <div class="file-name">Project Assets</div>
-                    <div class="file-meta">
-                        <span>Folder</span>
-                        <span>Oct 12, 2026</span>
-                    </div>
-                </div>
+            <!-- Dynamic File Container (Grid View) -->
+            <div id="file-grid" class="file-grid"></div>
 
-                <!-- File Card -->
-                <div class="file-card">
-                    <button class="more-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                    </button>
-                    <div class="file-icon" style="color: var(--primary);">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <div class="file-name">Q3 Report.pdf</div>
-                    <div class="file-meta">
-                        <span>2.4 MB</span>
-                        <span>Nov 1, 2026</span>
-                    </div>
-                </div>
+            <!-- Dynamic File Container (List View) -->
+            <div id="file-list" style="display: none;"></div>
 
-                <!-- Image Card -->
-                <div class="file-card">
-                    <button class="more-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                    </button>
-                    <div class="file-icon" style="color: var(--success);">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                    </div>
-                    <div class="file-name">Design Mockup.png</div>
-                    <div class="file-meta">
-                        <span>4.1 MB</span>
-                        <span>Nov 3, 2026</span>
-                    </div>
+            <!-- Empty State -->
+            <div id="empty-state" class="empty-state">
+                <div class="empty-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                 </div>
+                <h3 id="empty-title" class="empty-title">No files found</h3>
+                <p id="empty-desc" class="empty-desc">Upload files or drag and drop here to get started.</p>
+                <button class="btn-primary" onclick="document.getElementById('file-input').click()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    Upload Files
+                </button>
             </div>
         </div>
     </main>
+
+    <!-- Floating Batch Selection Bar -->
+    <div id="batch-bar" class="batch-bar">
+        <span id="batch-count-text" class="batch-count-text">0 selected</span>
+        <button class="btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.8125rem;" onclick="batchDownloadZip()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download ZIP
+        </button>
+        <button class="btn-danger" style="padding: 0.4rem 0.9rem; font-size: 0.8125rem;" onclick="batchMoveToTrash()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            Move to Trash
+        </button>
+        <button class="btn-outline" style="padding: 0.4rem 0.75rem; font-size: 0.8125rem;" onclick="clearSelection()">
+            Cancel
+        </button>
+    </div>
+
+    <!-- Upload Toast Container -->
+    <div id="upload-toast-container" class="upload-toast-container"></div>
+
+    <!-- Share Modal -->
+    <div id="share-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="share-modal-title" class="modal-title">Share File</h3>
+                <button class="modal-close-btn modal-close-trigger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 1rem;">Anyone with this link will be able to view and download this file.</p>
+                <div class="form-group">
+                    <label class="form-label">Shareable Link</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="text" id="share-link-input" class="form-input" readonly>
+                        <button class="btn-primary" onclick="copyShareLink()">Copy</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline modal-close-trigger">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Folder Modal -->
+    <div id="new-folder-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Folder</h3>
+                <button class="modal-close-btn modal-close-trigger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Folder Name</label>
+                    <input type="text" id="folder-name-input" class="form-input" placeholder="e.g. Marketing Assets" autofocus>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline modal-close-trigger">Cancel</button>
+                <button id="create-folder-confirm-btn" class="btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="modal-backdrop">
+        <div class="modal-card" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 id="preview-modal-title" class="modal-title">File Details</h3>
+                <button class="modal-close-btn modal-close-trigger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div id="preview-modal-body" class="modal-body"></div>
+            <div class="modal-footer">
+                <button class="btn-primary modal-close-trigger">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">Settings</h3>
+                <button class="modal-close-btn modal-close-trigger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" value="{{ user.name if user else 'Tanmay Mishra' }}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" value="{{ user.email if user else 'mishratanmay170@gmail.com' }}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Default View</label>
+                    <select class="form-input" onchange="currentView = this.value; renderFiles();">
+                        <option value="grid">Grid View</option>
+                        <option value="list">List View</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline modal-close-trigger">Cancel</button>
+                <button class="btn-primary modal-close-trigger" onclick="showToast('Settings saved successfully')">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upgrade Plan Modal -->
+    <div id="upgrade-modal" class="modal-backdrop">
+        <div class="modal-card" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Upgrade Your Storage</h3>
+                <button class="modal-close-btn modal-close-trigger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--text-secondary); font-size: 0.875rem;">Select the plan that fits your cloud storage needs.</p>
+                <div class="plans-grid">
+                    <div class="plan-card active-plan">
+                        <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--primary);">Free</h4>
+                        <div style="font-size: 1.5rem; font-weight: 800; margin: 0.5rem 0;">$0</div>
+                        <p style="font-size: 0.8125rem; color: var(--text-secondary);">20 GB Storage</p>
+                        <div style="margin-top: 1rem; font-size: 0.75rem; color: var(--primary); font-weight: 600;">Current Plan</div>
+                    </div>
+                    <div class="plan-card">
+                        <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Pro</h4>
+                        <div style="font-size: 1.5rem; font-weight: 800; margin: 0.5rem 0;">$9.99<span style="font-size: 0.75rem; font-weight: normal;">/mo</span></div>
+                        <p style="font-size: 0.8125rem; color: var(--text-secondary);">2 TB Storage</p>
+                        <button class="btn-primary modal-close-trigger" style="margin-top: 1rem; width: 100%; justify-content: center; font-size: 0.8125rem;" onclick="showToast('Upgraded to Pro Plan!')">Choose Pro</button>
+                    </div>
+                    <div class="plan-card">
+                        <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Enterprise</h4>
+                        <div style="font-size: 1.5rem; font-weight: 800; margin: 0.5rem 0;">$24.99<span style="font-size: 0.75rem; font-weight: normal;">/mo</span></div>
+                        <p style="font-size: 0.8125rem; color: var(--text-secondary);">10 TB Storage</p>
+                        <button class="btn-outline modal-close-trigger" style="margin-top: 1rem; width: 100%; justify-content: center; font-size: 0.8125rem;" onclick="showToast('Upgraded to Enterprise Plan!')">Choose Plan</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline modal-close-trigger">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Modal -->
+    <div id="logout-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">Sign Out</h3>
+                <button class="modal-close-btn modal-close-trigger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--text-secondary); font-size: 0.9375rem;">Are you sure you want to log out of your IntelliDrive account?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline modal-close-trigger">Cancel</button>
+                <a href="/" class="btn-danger" style="text-decoration: none; display: inline-flex; align-items: center;">Log Out</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 </body>
 </html>

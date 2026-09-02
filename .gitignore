@@ -1,1 +1,6 @@
 github_credentials.txt
+__pycache__/
+*.py[cod]
+*$py.class
+app/static/uploads/*
+!app/static/uploads/.gitkeep

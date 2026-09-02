@@ -23,9 +23,13 @@
                 <li><a href="#about">About</a></li>
             </ul>
             <div class="nav-actions">
+                {% if user %}
+                <a href="/dashboard" class="btn btn-primary">Go to Dashboard</a>
+                {% else %}
                 <a href="/login" class="btn btn-ghost">Login</a>
                 <a href="/register" class="btn btn-outline">Register</a>
-                <a href="/dashboard" class="btn btn-primary">Get Started</a>
+                <a href="/register" class="btn btn-primary">Get Started</a>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -35,7 +39,7 @@
             <h1>Secure cloud storage<br>for everyone.</h1>
             <p>Experience fast, reliable, and private cloud storage with IntelliDrive. Your files, accessible anywhere, with state-of-the-art security.</p>
             <div class="hero-actions">
-                <a href="/dashboard" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.125rem;">Get Started for Free</a>
+                <a href="/register" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.125rem;">Get Started for Free</a>
                 <a href="#features" class="btn btn-outline" style="padding: 1rem 2rem; font-size: 1.125rem;">Learn More</a>
             </div>
             

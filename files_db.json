@@ -1,0 +1,75 @@
+{
+  "files": [
+    {
+      "id": "b2b1a4bd-8a3f-4dce-ae88-10703a7b8ce4",
+      "name": "Subproject Alpha",
+      "type": "folder",
+      "size_bytes": 0,
+      "size_formatted": "Folder",
+      "created_at": "2026-09-02T15:02:25.243212",
+      "date_formatted": "Sep 02, 2026",
+      "starred": false,
+      "trashed": false,
+      "shared": false,
+      "parent_id": "item-1",
+      "is_folder": true
+    },
+    {
+      "id": "15e174fb-ffed-4a75-9766-bd27d5910a7f",
+      "name": "Screenshot_2026-08-05_12-33-48.png",
+      "saved_name": "15e174fb-ffed-4a75-9766-bd27d5910a7f_Screenshot_2026-08-05_12-33-48.png",
+      "type": "image",
+      "size_bytes": 463864,
+      "size_formatted": "453.0 KB",
+      "created_at": "2026-09-02T14:58:37.653260",
+      "date_formatted": "Sep 02, 2026",
+      "starred": false,
+      "trashed": false,
+      "is_folder": false,
+      "download_url": "/api/download/15e174fb-ffed-4a75-9766-bd27d5910a7f"
+    },
+    {
+      "id": "ad4159e8-b7a3-4e04-b8c3-f9eaab936444",
+      "name": "Screenshot_2026-08-05_12-33-48.png",
+      "saved_name": "ad4159e8-b7a3-4e04-b8c3-f9eaab936444_Screenshot_2026-08-05_12-33-48.png",
+      "type": "image",
+      "size_bytes": 463864,
+      "size_formatted": "453.0 KB",
+      "created_at": "2026-09-02T14:56:27.303935",
+      "date_formatted": "Sep 02, 2026",
+      "starred": false,
+      "trashed": true,
+      "is_folder": false,
+      "download_url": "/api/download/ad4159e8-b7a3-4e04-b8c3-f9eaab936444"
+    },
+    {
+      "id": "05cc2026-aaff-4d14-be7a-e4bc17e1ea98",
+      "name": "test_upload.txt",
+      "saved_name": "05cc2026-aaff-4d14-be7a-e4bc17e1ea98_test_upload.txt",
+      "type": "document",
+      "size_bytes": 42,
+      "size_formatted": "42 B",
+      "created_at": "2026-09-02T14:48:40.703769",
+      "date_formatted": "Sep 02, 2026",
+      "starred": false,
+      "trashed": false,
+      "is_folder": false,
+      "download_url": "/api/download/05cc2026-aaff-4d14-be7a-e4bc17e1ea98"
+    },
+    {
+      "id": "item-1",
+      "name": "Project Assets",
+      "type": "folder",
+      "size_bytes": 0,
+      "size_formatted": "Folder",
+      "created_at": "2026-10-12T10:00:00",
+      "date_formatted": "Oct 12, 2026",
+      "starred": false,
+      "trashed": false,
+      "is_folder": true,
+      "shared": false,
+      "share_token": "80b05c2e"
+    }
+  ],
+  "total_quota_bytes": 21474836480
+}
