@@ -1,8 +1,8 @@
 :root {
-  --primary: #4F46E5;
-  --primary-hover: #4338CA;
-  --primary-light: #EEF2FF;
-  --accent: #6366F1;
+  --primary: #960018;
+  --primary-hover: #7E0014;
+  --primary-light: #FDF2F4;
+  --accent: #B31B2C;
   --bg: #F8FAFC;
   --card-bg: #FFFFFF;
   --border: #E2E8F0;
@@ -13,7 +13,7 @@
   --danger-light: #FEF2F2;
   --success: #10B981;
   --font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
@@ -35,7 +35,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 2rem 1rem;
-  background: radial-gradient(circle at 50% 0%, #EEF2FF 0%, #F8FAFC 60%);
+  background: radial-gradient(circle at 50% 0%, #FFF5F6 0%, #F8FAFC 65%);
 }
 
 .auth-card {
@@ -60,7 +60,7 @@ body {
   gap: 0.5rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary);
+  color: var(--text-main);
   text-decoration: none;
   margin-bottom: 1rem;
 }
@@ -184,25 +184,27 @@ body {
 
 .form-input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(150, 0, 24, 0.15);
 }
 
 .btn-submit {
   width: 100%;
   padding: 0.75rem;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  background: var(--primary);
   color: white;
-  border: none;
+  border: 1px solid var(--primary);
   border-radius: var(--radius-md);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+  box-shadow: 0 4px 14px rgba(150, 0, 24, 0.25);
 }
 
 .btn-submit:hover {
-  filter: brightness(1.08);
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  box-shadow: 0 4px 16px rgba(150, 0, 24, 0.35);
   transform: translateY(-1px);
 }
 
@@ -249,19 +251,19 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  background-color: #EEF2FF;
-  border: 1px dashed #A5B4FC;
+  background-color: #FDF2F4;
+  border: 1px dashed #FECDD3;
   padding: 0.5rem 0.75rem;
   border-radius: var(--radius-md);
   font-size: 0.8125rem;
-  color: #3730A3;
+  color: var(--primary);
   margin-bottom: 1.25rem;
   width: 100%;
   cursor: pointer;
 }
 
 .hint-badge:hover {
-  background-color: #E0E7FF;
+  background-color: #FCE7EB;
 }
 
 @media (max-width: 480px) {

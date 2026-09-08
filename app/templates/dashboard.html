@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - IntelliDrive</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}?v=8">
 </head>
 <body>
     <!-- Mobile Sidebar Backdrop Overlay -->
@@ -32,7 +32,7 @@
         <div class="brand">
             <a href="/" class="brand-link">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                    <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
                 </svg>
                 <span>IntelliDrive</span>
             </a>
@@ -44,18 +44,6 @@
             <button class="nav-item active" data-category="all">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                 My Files
-            </button>
-            <button class="nav-item" data-category="recent">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                Recent
-            </button>
-            <button class="nav-item" data-category="shared">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                Shared
-            </button>
-            <button class="nav-item" data-category="starred">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                Starred
             </button>
             <button class="nav-item" data-category="trash">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
@@ -75,19 +63,15 @@
             <div class="storage-info">
                 <div class="storage-text">
                     <span>Storage</span>
-                    <span id="storage-text-used">45% Used</span>
+                    <span id="storage-text-used">0% Used</span>
                 </div>
                 <div class="progress-bar">
-                    <div id="storage-progress-fill" class="progress-fill"></div>
+                    <div id="storage-progress-fill" class="progress-fill" style="width: 0%;"></div>
                 </div>
                 <div id="storage-text-detail" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.5rem;">
-                    9.0 GB of 20 GB used
+                    0 B of 2.0 GB used
                 </div>
             </div>
-            <button class="btn-upgrade" onclick="openModal(document.getElementById('upgrade-modal'))">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                Upgrade Plan
-            </button>
         </div>
     </aside>
 
@@ -119,22 +103,18 @@
                 </button>
                 
                 <div class="profile-container">
-                    <button id="profile-btn" class="profile-btn" title="User Menu">{{ user.initials if user else 'TM' }}</button>
+                    <button id="profile-btn" class="profile-btn" title="User Menu">{{ user.initials if user else 'U' }}</button>
                     <div id="profile-dropdown" class="profile-dropdown">
                         <div class="profile-header">
-                            <div class="profile-header-avatar">{{ user.initials if user else 'TM' }}</div>
+                            <div class="profile-header-avatar">{{ user.initials if user else 'U' }}</div>
                             <div class="profile-info">
-                                <span class="profile-name">{{ user.name if user else 'Tanmay Mishra' }}</span>
-                                <span class="profile-email">{{ user.email if user else 'mishratanmay170@gmail.com' }}</span>
+                                <span class="profile-name">{{ user.name if user else 'User' }}</span>
+                                <span class="profile-email">{{ user.email if user else 'user@example.com' }}</span>
                             </div>
                         </div>
                         <button class="dropdown-item" onclick="openModal(document.getElementById('settings-modal'))">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                             Account Settings
-                        </button>
-                        <button class="dropdown-item" onclick="openModal(document.getElementById('upgrade-modal'))">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                            Storage & Plans
                         </button>
                         <button class="dropdown-item" onclick="toggleTheme()">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -166,12 +146,11 @@
             <!-- Toolbar: Filter Chips & Sort -->
             <div class="toolbar-row">
                 <div class="filter-chips">
-                    <button class="filter-chip active" data-type="all">All Files</button>
-                    <button class="filter-chip" data-type="folder">Folders</button>
-                    <button class="filter-chip" data-type="document">Documents</button>
+                    <button class="filter-chip active" data-type="all">All</button>
                     <button class="filter-chip" data-type="pdf">PDFs</button>
                     <button class="filter-chip" data-type="image">Images</button>
-                    <button class="filter-chip" data-type="media">Media</button>
+                    <button class="filter-chip" data-type="video">Videos</button>
+                    <button class="filter-chip" data-type="document">Documents</button>
                 </div>
 
                 <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -237,30 +216,7 @@
     <!-- Upload Toast Container -->
     <div id="upload-toast-container" class="upload-toast-container"></div>
 
-    <!-- Share Modal -->
-    <div id="share-modal" class="modal-backdrop">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3 id="share-modal-title" class="modal-title">Share File</h3>
-                <button class="modal-close-btn modal-close-trigger">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 1rem;">Anyone with this link will be able to view and download this file.</p>
-                <div class="form-group">
-                    <label class="form-label">Shareable Link</label>
-                    <div style="display: flex; gap: 0.5rem;">
-                        <input type="text" id="share-link-input" class="form-input" readonly>
-                        <button class="btn-primary" onclick="copyShareLink()">Copy</button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-outline modal-close-trigger">Done</button>
-            </div>
-        </div>
-    </div>
+
 
     <!-- New Folder Modal -->
     <div id="new-folder-modal" class="modal-backdrop">
@@ -312,11 +268,11 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label class="form-label">Full Name</label>
-                    <input type="text" class="form-input" value="{{ user.name if user else 'Tanmay Mishra' }}">
+                    <input type="text" class="form-input" value="{{ user.name if user else 'User' }}">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Email Address</label>
-                    <input type="email" class="form-input" value="{{ user.email if user else 'mishratanmay170@gmail.com' }}">
+                    <input type="email" class="form-input" value="{{ user.email if user else 'user@example.com' }}">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Default View</label>
@@ -333,43 +289,7 @@
         </div>
     </div>
 
-    <!-- Upgrade Plan Modal -->
-    <div id="upgrade-modal" class="modal-backdrop">
-        <div class="modal-card" style="max-width: 600px;">
-            <div class="modal-header">
-                <h3 class="modal-title">Upgrade Your Storage</h3>
-                <button class="modal-close-btn modal-close-trigger">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p style="color: var(--text-secondary); font-size: 0.875rem;">Select the plan that fits your cloud storage needs.</p>
-                <div class="plans-grid">
-                    <div class="plan-card active-plan">
-                        <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--primary);">Free</h4>
-                        <div style="font-size: 1.5rem; font-weight: 800; margin: 0.5rem 0;">$0</div>
-                        <p style="font-size: 0.8125rem; color: var(--text-secondary);">20 GB Storage</p>
-                        <div style="margin-top: 1rem; font-size: 0.75rem; color: var(--primary); font-weight: 600;">Current Plan</div>
-                    </div>
-                    <div class="plan-card">
-                        <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Pro</h4>
-                        <div style="font-size: 1.5rem; font-weight: 800; margin: 0.5rem 0;">$9.99<span style="font-size: 0.75rem; font-weight: normal;">/mo</span></div>
-                        <p style="font-size: 0.8125rem; color: var(--text-secondary);">2 TB Storage</p>
-                        <button class="btn-primary modal-close-trigger" style="margin-top: 1rem; width: 100%; justify-content: center; font-size: 0.8125rem;" onclick="showToast('Upgraded to Pro Plan!')">Choose Pro</button>
-                    </div>
-                    <div class="plan-card">
-                        <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Enterprise</h4>
-                        <div style="font-size: 1.5rem; font-weight: 800; margin: 0.5rem 0;">$24.99<span style="font-size: 0.75rem; font-weight: normal;">/mo</span></div>
-                        <p style="font-size: 0.8125rem; color: var(--text-secondary);">10 TB Storage</p>
-                        <button class="btn-outline modal-close-trigger" style="margin-top: 1rem; width: 100%; justify-content: center; font-size: 0.8125rem;" onclick="showToast('Upgraded to Enterprise Plan!')">Choose Plan</button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-outline modal-close-trigger">Close</button>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Logout Modal -->
     <div id="logout-modal" class="modal-backdrop">
@@ -385,11 +305,11 @@
             </div>
             <div class="modal-footer">
                 <button class="btn-outline modal-close-trigger">Cancel</button>
-                <a href="/" class="btn-danger" style="text-decoration: none; display: inline-flex; align-items: center;">Log Out</a>
+                <a href="/logout" class="btn-danger" style="text-decoration: none; display: inline-flex; align-items: center;">Log Out</a>
             </div>
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}?v=3"></script>
 </body>
 </html>

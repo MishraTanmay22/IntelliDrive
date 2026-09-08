@@ -1,6 +1,10 @@
 github_credentials.txt
+.env
 __pycache__/
 *.py[cod]
 *$py.class
+*.db
+instance/
+users_db.json
 app/static/uploads/*
 !app/static/uploads/.gitkeep
