@@ -217,7 +217,8 @@ GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
 @app.route('/auth/oauth/google')
 def google_login():
     session['oauth_state'] = os.urandom(16).hex()
-    redirect_uri = f"{request.scheme}://{request.host}/auth/oauth/google/callback"
+    scheme = request.headers.get('X-Forwarded-Proto', request.scheme)
+    redirect_uri = f"{scheme}://{request.host}/auth/oauth/google/callback"
     
     params = {
         'client_id': GOOGLE_CLIENT_ID,
@@ -244,7 +245,8 @@ def google_callback():
     if not code:
         return render_template('login.html', error="Authorization code was not returned by Google.")
 
-    redirect_uri = f"{request.scheme}://{request.host}/auth/oauth/google/callback"
+    scheme = request.headers.get('X-Forwarded-Proto', request.scheme)
+    redirect_uri = f"{scheme}://{request.host}/auth/oauth/google/callback"
     
     # Exchange code for access token
     token_url = "https://oauth2.googleapis.com/token"
